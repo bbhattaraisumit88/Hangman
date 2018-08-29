@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hangman.Domain;
 
 namespace Hangman.Web.MappingProfile
 {
@@ -6,7 +7,7 @@ namespace Hangman.Web.MappingProfile
     {
         public MappingProfile()
         {
-            
+            CreateMap<RegistrationDTO, AppUser>().ReverseMap();
         }
     }
 }

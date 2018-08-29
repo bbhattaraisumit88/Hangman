@@ -34,13 +34,20 @@ namespace Hangman.Web.Controllers
         [Route("Register")]
         public async Task<IActionResult> Post([FromBody]RegistrationDTO model)
         {
-            var userIdentity = _mapper.Map<AppUser>(model);
+            try
+            {
+                var userIdentity = _mapper.Map<AppUser>(model);
 
-            var result = await _userService.CreateAsync(userIdentity, model.Password);
+                var result = await _userService.CreateAsync(userIdentity, model.Password);
 
-            if (!result.Succeeded) return BadRequest(Errors.AddErrorToModelState(result, ModelState));
+                if (!result.Succeeded) return BadRequest(Errors.AddErrorToModelState(result, ModelState));
 
-            return new JsonResult("User Registered Successfully");
+                return new JsonResult("User Registered Successfully");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         [HttpPost]
