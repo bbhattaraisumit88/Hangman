@@ -17,7 +17,7 @@ namespace Hangman.Web.Helpers
             {
                 context.Database.EnsureCreated();
                 var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                string[] roleNames = { "superuser", "admin", "provider", "guest" };
+                string[] roleNames = { "superuser", "guest" };
 
                 IdentityResult roleResult;
 

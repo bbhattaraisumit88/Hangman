@@ -78,9 +78,7 @@ namespace Hangman.Web
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Superuser", policy => policy.RequireClaim(ClaimTypes.Role, "superuser"));
-                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
-                options.AddPolicy("Provider", policy => policy.RequireClaim(ClaimTypes.Role, "provider"));
-                options.AddPolicy("Guest", policy => policy.RequireClaim(ClaimTypes.Role, "guest"));
+                options.AddPolicy("Guest", policy => policy.RequireClaim(ClaimTypes.Role, "superuser", "guest"));
             });
 
             // add identity
