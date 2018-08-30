@@ -3,16 +3,16 @@ using Hangman.Domain;
 using Hangman.Service;
 using Hangman.Service.Helpers;
 using Hangman.Web.Helpers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Hangman.Web.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
+{   
     public class AccountsController : BaseController
     {
         private readonly ApplicationDbContext _gpsRecon;
@@ -36,12 +36,15 @@ namespace Hangman.Web.Controllers
         {
             try
             {
-                var userIdentity = _mapper.Map<AppUser>(model);
-
-                var result = await _userService.CreateAsync(userIdentity, model.Password);
-
-                if (!result.Succeeded) return BadRequest(Errors.AddErrorToModelState(result, ModelState));
-
+                AppUser userIdentity = _mapper.Map<AppUser>(model);
+                string role = Constants.Strings.DefaultRoles.Guest;
+                IdentityResult result = await _userService.CreateAsync(userIdentity, model.Password);
+                if (result.Succeeded)
+                {
+                    await _userService.AddClaimAsync(userIdentity, role);
+                    await _userService.AddToRoleAsync(userIdentity, role);
+                }
+                else return BadRequest(Errors.AddErrorToModelState(result, ModelState));
                 return new JsonResult("User Registered Successfully");
             }
             catch (Exception ex)
@@ -51,16 +54,17 @@ namespace Hangman.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody]CredentialsDTO credentials)
+        [Route("Login")]
+        public async Task<IActionResult> Post([FromBody]CredentialsDTO credentials)
         {
             try
             {
-                var identity = await _userService.GetClaimsIdentity(credentials.UserName, credentials.Password);
+                ClaimsIdentity identity = await _userService.GetClaimsIdentity(credentials.UserName, credentials.Password);
                 if (identity == null)
                 {
                     return BadRequest(Utility.AddErrorToModelState("Invalid username or password.", ModelState));
                 }
-                var jwt = await Tokens.GenerateJwt(identity, _jwtService, credentials.UserName, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
+                string jwt = await Tokens.GenerateJwt(identity, _jwtService, credentials.UserName, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
                 return new OkObjectResult(jwt);
             }
             catch (Exception ex)
