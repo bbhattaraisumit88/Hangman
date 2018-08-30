@@ -1,20 +1,32 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import './App.css';
+import { Container, Row, Col, Input, Button, Card, CardBody } from 'mdbreact';
 
 export default class App extends Component {
-  displayName = App.name
-
-  render() {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetchdata' component={FetchData} />
-      </Layout>
-    );
-  }
+    render() {
+        return (
+            <Container>
+                <Row>
+                    <Col md="6">
+                        <Card>
+                            <CardBody>
+                                <div className="form-header deep-blue-gradient rounded">
+                                    <h3 className="my-3"><i className="fa fa-lock" /> Sign In:</h3>
+                                </div>
+                                <form>
+                                    <div className="grey-text">
+                                        <Input label="Your username" icon="user" group type="text" validate error="wrong" success="right" />
+                                        <Input label="Your password" icon="lock" group type="password" validate />
+                                    </div>
+                                    <div className="text-center py-4 mt-3">
+                                        <Button color="cyan" type="button" className="login">Login</Button>
+                                    </div>
+                                </form>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+        );
+    }
 }
