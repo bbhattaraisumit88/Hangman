@@ -13,6 +13,12 @@
             {
                 public const string ApiAccess = "api_access";
             }
+
+            public static class DefaultRoles
+            {
+                public const string Superuser = "superuser";
+                public const string Guest = "guest";
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Hangman.Domain;
+using Hangman.Service.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,14 +17,16 @@ namespace Hangman.Web.Helpers
             try
             {
                 context.Database.EnsureCreated();
-                var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                string[] roleNames = { "superuser", "guest" };
+                string role = Constants.Strings.DefaultRoles.Superuser;
+                string guestRole = Constants.Strings.DefaultRoles.Guest;
+                RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                string[] roleNames = { role, guestRole };
 
                 IdentityResult roleResult;
 
-                foreach (var roleName in roleNames)
+                foreach (string roleName in roleNames)
                 {
-                    var roleExist = await roleManager.RoleExistsAsync(roleName);
+                    bool roleExist = await roleManager.RoleExistsAsync(roleName);
                     if (!roleExist)
                     {
                         roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
@@ -50,12 +53,11 @@ namespace Hangman.Web.Helpers
 
                     string userPassword = config.GetSection("AppSettings")["UserPassword"];
 
-                    var createSuperUser = await userManager.CreateAsync(superuser, userPassword);
-
+                    var createSuperUser = await userManager.CreateAsync(superuser, userPassword);                   
                     if (createSuperUser.Succeeded)
                     {
-                        await userManager.AddClaimAsync(superuser, new Claim(ClaimTypes.Role, "superuser"));
-                        await userManager.AddToRoleAsync(superuser, "superuser");
+                        await userManager.AddClaimAsync(superuser, new Claim(ClaimTypes.Role, role));
+                        await userManager.AddToRoleAsync(superuser, role);
                     }
                 }
             }

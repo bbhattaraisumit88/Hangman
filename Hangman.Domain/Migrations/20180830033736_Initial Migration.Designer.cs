@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hangman.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180830030538_Initial Migration")]
+    [Migration("20180830033736_Initial Migration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
