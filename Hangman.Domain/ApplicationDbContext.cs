@@ -10,5 +10,6 @@ namespace Hangman.Domain
         {
 
         }
+        public virtual DbSet<GameData> GameDatas { get; set; }
     }
 }

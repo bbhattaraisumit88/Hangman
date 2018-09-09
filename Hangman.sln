@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Web", "Hangman.Web\Hangman.Web.csproj", "{CF87D27B-3B40-448D-AF4A-B8F2C6399C8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Web", "Hangman.Web\Hangman.Web.csproj", "{CF87D27B-3B40-448D-AF4A-B8F2C6399C8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Domain", "Hangman.Domain\Hangman.Domain.csproj", "{82DC2E70-B76E-4EE4-9787-BA83C8B4939D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Domain", "Hangman.Domain\Hangman.Domain.csproj", "{82DC2E70-B76E-4EE4-9787-BA83C8B4939D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Repo", "Hangman.Repo\Hangman.Repo.csproj", "{8D826D91-889C-496A-8D8F-B4D9EC3E7431}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Repo", "Hangman.Repo\Hangman.Repo.csproj", "{8D826D91-889C-496A-8D8F-B4D9EC3E7431}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Service", "Hangman.Service\Hangman.Service.csproj", "{0D69021A-6C43-4A22-A144-82F6B62ECD84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Service", "Hangman.Service\Hangman.Service.csproj", "{0D69021A-6C43-4A22-A144-82F6B62ECD84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.WebApi", "Hangman.WebApi\Hangman.WebApi.csproj", "{7F08F058-892D-4FE3-9988-098222CF5FB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0D69021A-6C43-4A22-A144-82F6B62ECD84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D69021A-6C43-4A22-A144-82F6B62ECD84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D69021A-6C43-4A22-A144-82F6B62ECD84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F08F058-892D-4FE3-9988-098222CF5FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F08F058-892D-4FE3-9988-098222CF5FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F08F058-892D-4FE3-9988-098222CF5FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F08F058-892D-4FE3-9988-098222CF5FB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

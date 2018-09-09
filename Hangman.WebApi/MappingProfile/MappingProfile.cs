@@ -8,6 +8,7 @@ namespace Hangman.Web.MappingProfile
         public MappingProfile()
         {
             CreateMap<RegistrationDTO, AppUser>().ReverseMap();
+            CreateMap<GameDataDTO, GameData>().ReverseMap();
         }
     }
 }
