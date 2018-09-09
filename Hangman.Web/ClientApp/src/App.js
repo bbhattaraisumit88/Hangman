@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
-import { Container, Row, Col, Input, Button, Card, CardBody } from 'mdbreact';
+import { Container, Row, Col, Input, Button, Fa, Card, CardBody } from 'mdbreact';
 
 export default class App extends Component {
     render() {
@@ -10,16 +9,14 @@ export default class App extends Component {
                     <Col md="6">
                         <Card>
                             <CardBody>
-                                <div className="form-header deep-blue-gradient rounded">
-                                    <h3 className="my-3"><i className="fa fa-lock" /> Sign In:</h3>
-                                </div>
                                 <form>
+                                    <p className="h4 text-center py-4">Log In</p>
                                     <div className="grey-text">
-                                        <Input label="Your username" icon="user" group type="text" validate error="wrong" success="right" />
-                                        <Input label="Your password" icon="lock" group type="password" validate />
+                                        <Input label="Username" icon="user" group type="text" validate error="wrong" success="right" />
+                                        <Input label="Password" icon="lock" group type="password" validate />
                                     </div>
                                     <div className="text-center py-4 mt-3">
-                                        <Button color="cyan" type="button" className="login">Login</Button>
+                                        <Button color="cyan" type="button">Login</Button>
                                     </div>
                                 </form>
                             </CardBody>

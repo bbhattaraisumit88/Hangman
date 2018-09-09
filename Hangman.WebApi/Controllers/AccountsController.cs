@@ -11,8 +11,8 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Hangman.Web.Controllers
-{   
+namespace Hangman.WebApi.Controllers
+{
     public class AccountsController : BaseController
     {
         private readonly ApplicationDbContext _gpsRecon;
@@ -72,6 +72,5 @@ namespace Hangman.Web.Controllers
                 throw;
             }
         }
-
     }
 }

@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hangman.Web.Controllers
+namespace Hangman.WebApi.Controllers
 {
-    public class AdminController : BaseController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BaseController : ControllerBase
     {
     }
 }
