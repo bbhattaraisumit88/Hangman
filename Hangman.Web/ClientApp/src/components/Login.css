@@ -6,10 +6,10 @@
     height: 25vw;
 }
 
-.md-form {
-    margin-top: 5.5rem;
-    margin-bottom: 6.5rem;
-}
+    .login-form .md-form {
+        margin-top: 5.5rem;
+        margin-bottom: 6.5rem;
+    }
 
 @media (min-width: 320px) and (max-width: 600px) {
     .login-form {
