@@ -1,29 +1,18 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Input, Button, Fa, Card, CardBody } from 'mdbreact';
+import { Route } from 'react-router';
+import { Login } from './components/Login';
+import { Register } from './components/Register';
 
 export default class App extends Component {
+    displayName = App.name
+
     render() {
         return (
-            <Container>
-                <Row>
-                    <Col md="6">
-                        <Card>
-                            <CardBody>
-                                <form>
-                                    <p className="h4 text-center py-4">Log In</p>
-                                    <div className="grey-text">
-                                        <Input label="Username" icon="user" group type="text" validate error="wrong" success="right" />
-                                        <Input label="Password" icon="lock" group type="password" validate />
-                                    </div>
-                                    <div className="text-center py-4 mt-3">
-                                        <Button color="cyan" type="button">Login</Button>
-                                    </div>
-                                </form>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
+            <div>
+                <Route exact path='/' component={Login} />
+                <Route exact path='/login' component={Login} />
+                <Route path='/register' component={Register} />
+            </div>
         );
     }
 }
