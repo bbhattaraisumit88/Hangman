@@ -23,9 +23,7 @@ export class Login extends Component {
                                 </form>
                             </CardBody>
                             <ModalFooter className="mx-5 pt-3 mb-1">
-                                <Link to="/register">
-                                    <p className="font-small grey-text d-flex justify-content-end">Not a member? Sign Up</p>
-                                </Link>
+                                <p className="font-small grey-text d-flex justify-content-end">Not a member? <Link to="/register" className="blue-text ml-1">Sign Up</Link></p>
                             </ModalFooter>
                         </Card>
                     </Col>
