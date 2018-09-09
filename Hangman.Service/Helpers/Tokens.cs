@@ -16,6 +16,7 @@ namespace Hangman.Service.Helpers
                 var response = new
                 {
                     id = identity.Claims.Single(c => c.Type == "id").Value,
+                    role = identity.Claims.Single(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Value,
                     auth_token = await jwtFactory.GenerateEncodedToken(userName, identity),
                     expires_in = (int)jwtOptions.ValidFor.TotalSeconds
                 };

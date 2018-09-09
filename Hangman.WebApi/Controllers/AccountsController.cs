@@ -62,10 +62,10 @@ namespace Hangman.WebApi.Controllers
                 ClaimsIdentity identity = await _userService.GetClaimsIdentity(credentials.UserName, credentials.Password);
                 if (identity == null)
                 {
-                    return BadRequest(Utility.AddErrorToModelState("Invalid username or password.", ModelState));
+                    return Unauthorized();
                 }
                 string jwt = await Tokens.GenerateJwt(identity, _jwtService, credentials.UserName, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
-                return new OkObjectResult(jwt);
+                return Ok(JsonConvert.SerializeObject(jwt));
             }
             catch (Exception ex)
             {

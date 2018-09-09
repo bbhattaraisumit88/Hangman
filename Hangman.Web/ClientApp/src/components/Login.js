@@ -2,6 +2,8 @@
 import './Login.css';
 import { Container, Row, Col, Input, Button, Fa, Card, CardBody, ModalFooter } from 'mdbreact';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
+import 'sweetalert/dist/sweetalert.css';
 
 export class Login extends Component {
     constructor(props) {
@@ -19,23 +21,41 @@ export class Login extends Component {
         let $this = this;
         let username = $this.state.username;
         let password = $this.state.password;
-        fetch('https://localhost:44321/api/accounts/login', {
-            method: 'POST',
-            body: JSON.stringify({ username: username, password: password }),
-            headers: {
-                'Content-Type': 'application/json'
+        if (username === '' && password === '') {
+            swal("Username and password is required", "", "error");
+        } else {
+            if (username === '') {
+                swal("Username is required", "", "error");
+            } else if (password === '') {
+                swal("Password is required", "", "error");
+            } else if (username !== '' && password !== '') {
+                if (password.length < 6 || password.length > 12) {
+                    swal("The field Password must be a string with a minimum length of 6 and a maximum length of 12", "", "error");
+                } else {
+                    fetch('https://localhost:44321/api/accounts/login', {
+                        method: 'POST',
+                        body: JSON.stringify({ username: username, password: password }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(function (response) {
+                        if (response.status === 200) {
+                            response.json().then(function (json) {
+                                $this.loginSuccess(JSON.parse(json));
+                            }).catch(function (ex) {
+                                console.log(ex.message);
+                            });
+                        } else if (response.status === 401) {
+                            swal("Invalid username or password", "", "error");
+                        }
+                    });
+                }
             }
-        }).then(function (response) {
-            return response.json();
-            }).then(function (json) {
-                $this.loginSuccess(json);
-        }).catch(function (ex) {
-            console.log(ex.message);
-        });
+        }
     }
 
     loginSuccess(token) {
-        console.log('parsed json', token);
+        localStorage.setItem('auth_token', JSON.stringify(token));
     }
 
     handleChange(e) {
