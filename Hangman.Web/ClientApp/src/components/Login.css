@@ -1,0 +1,30 @@
+﻿.container {
+    margin-top: 10%;
+}
+
+.login-form {
+    height: 25vw;
+}
+
+.md-form {
+    margin-top: 5.5rem;
+    margin-bottom: 6.5rem;
+}
+
+@media (min-width: 320px) and (max-width: 600px) {
+    .login-form {
+        height: 95vw;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 800px) {
+    .login-form {
+        height: 45vw;
+    }
+}
+
+@media (min-width: 801px) and (max-width: 1024px) {
+    .login-form {
+        height: 35vw;
+    }
+}
