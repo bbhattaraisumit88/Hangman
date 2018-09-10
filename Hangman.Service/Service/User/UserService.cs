@@ -1,5 +1,7 @@
 ﻿using Hangman.Domain;
+using Hangman.Repo;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +15,24 @@ namespace Hangman.Service
         private readonly UserManager<T> _userManager;
         private readonly IJwtService _jwtService;
         private readonly ApplicationDbContext appContext;
+        private readonly IUnitOfWork _uow;
 
-        public UserService(UserManager<T> userManager, ApplicationDbContext appContext, IJwtService jwtService)
+        public UserService(UserManager<T> userManager, ApplicationDbContext appContext, IJwtService jwtService, IUnitOfWork _uow)
         {
             this._userManager = userManager;
             this.appContext = appContext;
             this._jwtService = jwtService;
+            this._uow = _uow;
         }
 
-        public List<T> GetAllAsync()
+        public IQueryable<object> GetAllAsync()
         {
             try
             {
-                return _userManager.Users.ToList();
+             return  from users in appContext.Users
+                                     join userroles in appContext.UserRoles on users.Id equals userroles.UserId
+                                     join roles in appContext.Roles on userroles.RoleId equals roles.Id
+                                     select new { users.Id, users.UserName, users.FirstName, users.LastName, users.Address, users.PhoneNumber, RoleId = roles.Id, roles.Name, users.ImageUrl };
             }
             catch (Exception ex)
             {

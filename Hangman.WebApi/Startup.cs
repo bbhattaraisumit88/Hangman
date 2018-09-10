@@ -41,7 +41,6 @@ namespace Hangman.WebApi
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IJwtService, JwtService>();
             services.AddTransient<IUserService<AppUser>, UserService<AppUser>>();
-            services.AddTransient<IGameDataService, GameDataService>();
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
             // Configure JwtIssuerOptions
