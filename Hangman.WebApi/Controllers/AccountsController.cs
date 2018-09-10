@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -37,6 +38,22 @@ namespace Hangman.WebApi.Controllers
             this._jwtOptions = jwtOptions.Value;
             this._userService = userService;
             this._hostingEnvironment = _hostingEnvironment;
+        }
+
+        [HttpGet]
+        [Route("GetAllUsers")]
+        public IActionResult Get()
+        {
+            try
+            {
+                var userList = _userService.GetAllAsync().ToList();
+                if (userList.Count > 0) return Ok(userList);
+                 else return NotFound("No users available");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]

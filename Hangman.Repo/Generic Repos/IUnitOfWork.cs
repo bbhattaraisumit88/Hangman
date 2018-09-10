@@ -4,7 +4,7 @@ namespace Hangman.Repo
 {
     public interface IUnitOfWork : IDisposable
     {
-        GameDataRepository GameDataRepository { get; }
+        UserRepository UserRepository { get; }
         int Save();
     }
 
