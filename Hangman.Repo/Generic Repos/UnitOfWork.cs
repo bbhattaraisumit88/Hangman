@@ -12,13 +12,13 @@ namespace Hangman.Repo
             _dbContext = dbContext ?? throw new ArgumentNullException("Context was not supplied");
         }
 
-        GameDataRepository _gameDataRepository;
+        UserRepository _userRepository;
       
-        public GameDataRepository GameDataRepository
+        public UserRepository UserRepository
         {
             get
             {
-                return _gameDataRepository ?? (_gameDataRepository = new GameDataRepository(_dbContext));
+                return _userRepository ?? (_userRepository = new UserRepository(_dbContext));
             }
         }
 
