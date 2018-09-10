@@ -21,6 +21,18 @@ namespace Hangman.Service
             this._jwtService = jwtService;
         }
 
+        public List<T> GetAllAsync()
+        {
+            try
+            {
+                return _userManager.Users.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<IdentityResult> CreateAsync(T userIdentity, string password)
         {
             try

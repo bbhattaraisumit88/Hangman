@@ -17,6 +17,7 @@ namespace Hangman.Domain
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Email cannot be empty")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "UserName cannot be empty")]
