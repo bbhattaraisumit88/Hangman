@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Repo", "Hangman.Rep
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Service", "Hangman.Service\Hangman.Service.csproj", "{0D69021A-6C43-4A22-A144-82F6B62ECD84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.WebApi", "Hangman.WebApi\Hangman.WebApi.csproj", "{7F08F058-892D-4FE3-9988-098222CF5FB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.WebApi", "Hangman.WebApi\Hangman.WebApi.csproj", "{7F08F058-892D-4FE3-9988-098222CF5FB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
