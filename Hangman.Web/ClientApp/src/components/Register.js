@@ -1,9 +1,9 @@
 ﻿import { Button, Card, CardBody, Col, Container, Input, Row } from 'mdbreact';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './Login.css';
 import './Register.css';
-import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
+import ReactDropzone from "react-dropzone";
 
 export class Register extends Component {
     constructor(props) {
@@ -18,7 +18,8 @@ export class Register extends Component {
                 email: '',
                 username: '',
                 password: '',
-                confirmpassword: ''
+                confirmpassword: '',
+                image: ''
             };
         $this.handleChange = $this.handleChange.bind($this);
         $this.registerUser = $this.registerUser.bind($this);
@@ -34,7 +35,8 @@ export class Register extends Component {
         let username = $this.state.username;
         let password = $this.state.password;
         let confirmpassword = $this.state.confirmpassword;
-        if (firstname === '' && lastname === '' && contact === '' && address === '' && email === '' && username === '' && password === '' && confirmpassword === '') {
+        let image = $this.state.image;
+        if (firstname === '' && lastname === '' && contact === '' && address === '' && email === '' && username === '' && password === '' && confirmpassword === '' && image === '') {
             swal("All fields are required required", "", "error");
         } else {
             if (firstname === '') {
@@ -53,25 +55,27 @@ export class Register extends Component {
                 swal("Password is required", "", "error");
             } else if (confirmpassword === '') {
                 swal("Confirm password is required", "", "error");
-            } else if (firstname !== '' && lastname !== '' && contact !== '' && address !== '' && email !== '' && username !== '' && password !== '' && confirmpassword !== '') {
+            } else if (image === '') {
+                swal("Upload your profile picture", "", "error");
+            } else if (firstname !== '' && lastname !== '' && contact !== '' && address !== '' && email !== '' && username !== '' && password !== '' && confirmpassword !== '' && image !== '') {
                 if (password !== confirmpassword) {
                     swal("Password and confirm password do not match", "", "error");
                 }
-                if (!this.validateEmail(email)) {
+                else if (!this.validateEmail(email)) {
                     swal("Not a valid email", "", "error");
                 }
-                if (password.length < 6 || password.length > 12) {
+                else if (password.length < 6 || password.length > 12) {
                     swal("The field Password must be a string with a minimum length of 6 and a maximum length of 12", "", "error");
                 } else {
                     fetch('https://localhost:44321/api/accounts/register', {
                         method: 'POST',
-                        body: JSON.stringify({ firstname: firstname, lastname: lastname, contact: contact, address: address, email: email, username: username, password: password, confirmpassword: confirmpassword }),
+                        body: JSON.stringify({ firstname: firstname, lastname: lastname, phonenumber: contact, address: address, email: email, username: username, password: password, confirmpassword: confirmpassword, imageurl: image }),
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     }).then(function (response) {
                         if (response.status === 200) {
-                            $this.loginUser($this.state.username, $this.state.password)
+                            $this.loginUser($this.state.username, $this.state.password);
                         }
                     });
                 }
@@ -129,6 +133,23 @@ export class Register extends Component {
         });
     }
 
+    onDrop = (files) => {
+        let $this = this;
+        var formData = new FormData();
+        formData.append('files', files[0]);
+        fetch('https://localhost:44321/api/accounts/upload', {
+            method: 'POST',
+            body: formData
+        }).then(function (response) {
+            response.json().then(function (json) {
+                $this.setState({ image: json });
+            }).catch(function (ex) {
+                console.log(ex.message);
+            });
+        });
+    }
+
+
     render() {
         return (
             <div className="reg-comp">
@@ -144,7 +165,10 @@ export class Register extends Component {
                                         <form className="reg-form">
                                             <div className="image-firstname">
                                                 <Input name="firstname" value={this.state.firstname} onChange={this.handleChange} label="Firstname" icon="user" group type="text" validate error="wrong" success="right" />
-                                                <div className="reg-img-div">Click or drop image to upload ...</div>
+                                                <ReactDropzone className="reg-img-div" onDrop={this.onDrop}><Fragment>
+                                                    <img src={`data:image/png;base64,${this.state.image}`} className="reg-img" />
+                                                </Fragment></ReactDropzone>
+                                                
                                             </div>
                                             <div className="grey-text">
                                                 <Input name="lastname" value={this.state.lastname} onChange={this.handleChange} label="Lastname" icon="user" group type="text" validate error="wrong" success="right" />
