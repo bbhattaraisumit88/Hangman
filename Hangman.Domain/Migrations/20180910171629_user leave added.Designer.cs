@@ -4,14 +4,16 @@ using Hangman.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hangman.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180910171629_user leave added")]
+    partial class userleaveadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,19 +86,11 @@ namespace Hangman.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("From")
-                        .IsRequired();
+                    b.Property<string>("Gender");
 
-                    b.Property<string>("IdentityId")
-                        .IsRequired();
+                    b.Property<string>("IdentityId");
 
-                    b.Property<string>("Reason")
-                        .IsRequired();
-
-                    b.Property<string>("Status");
-
-                    b.Property<string>("To")
-                        .IsRequired();
+                    b.Property<string>("Location");
 
                     b.HasKey("Id");
 
@@ -219,8 +213,7 @@ namespace Hangman.Domain.Migrations
                 {
                     b.HasOne("Hangman.Domain.AppUser", "Identity")
                         .WithMany()
-                        .HasForeignKey("IdentityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdentityId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

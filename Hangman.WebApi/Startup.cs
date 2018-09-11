@@ -2,6 +2,8 @@
 using Hangman.Domain;
 using Hangman.Repo;
 using Hangman.Service;
+using Hangman.Service.Interface;
+using Hangman.Service.Service;
 using Hangman.Web.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +42,7 @@ namespace Hangman.WebApi
             );
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IJwtService, JwtService>();
+            services.AddTransient<IUserLeaveService, UserLeaveService>();
             services.AddTransient<IUserService<AppUser>, UserService<AppUser>>();
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 

@@ -5,21 +5,26 @@ import { Register } from './components/Register';
 import { Admindashboard } from './components/Admindashboard';
 import { LeaveStatus } from './components/LeaveStatus';
 import { ManageUsers } from './components/ManageUsers';
-import { Layout } from './components/Layout';
+import { Userdashboard } from './components/Userdashboard';
+import { ApplyLeave } from './components/ApplyLeave';
+import { UserProfile } from './components/UserProfile';
 
 export default class App extends Component {
     displayName = App.name
 
     render() {
         return (
-            <Layout>
+            <div>
                 <Route exact path='/' component={Login} />
                 <Route exact path='/login' component={Login} />
                 <Route path='/register' component={Register} />
                 <Route path='/admindashboard' component={Admindashboard} />
                 <Route path='/approveleave' component={LeaveStatus} />
                 <Route path='/manageuser' component={ManageUsers} />
-                </Layout>
+                <Route path='/userdashboard' component={Userdashboard} />
+                <Route path='/applyleave' component={ApplyLeave} />
+                <Route path='/userprofile' component={UserProfile} />
+            </div>
         );
     }
 }

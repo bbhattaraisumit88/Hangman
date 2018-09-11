@@ -10,9 +10,10 @@ namespace Hangman.Service
     public interface IUserService<T> where T : class
     {
         IQueryable<object> GetAllAsync();
-
+        IQueryable<object> SearchAllAsyncByName(string userName);
+        IQueryable<object> GetAllRoles();
         Task<IdentityResult> CreateAsync(T userIdentity, string password);
-
+        Task<IdentityResult> DeleteAsync(T userIdentity);
         Task<IdentityResult> AddToRoleAsync(T userIdentity, string roleName);
 
         Task<T> FindByIdAsync(string userId);

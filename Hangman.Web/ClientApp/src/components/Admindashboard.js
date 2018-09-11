@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
+import { Glyphicon, Nav, Navbar, NavItem, Col, Grid, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import './Admindashboard.css';
 
@@ -26,6 +26,11 @@ export class Admindashboard extends Component {
                         <LinkContainer to={'/approveleave'}>
                             <NavItem>
                                 <Glyphicon glyph='th-list' /> Check Leave Status
+              </NavItem>
+                        </LinkContainer>
+                        <LinkContainer to={'/login'}>
+                            <NavItem>
+                                <Glyphicon glyph='th-list' /> Logout
               </NavItem>
                         </LinkContainer>
                     </Nav>
