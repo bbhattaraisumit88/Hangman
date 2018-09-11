@@ -29,10 +29,39 @@ namespace Hangman.Service
         {
             try
             {
-             return  from users in appContext.Users
-                                     join userroles in appContext.UserRoles on users.Id equals userroles.UserId
-                                     join roles in appContext.Roles on userroles.RoleId equals roles.Id
-                                     select new { users.Id, users.UserName, users.FirstName, users.LastName, users.Address, users.PhoneNumber, RoleId = roles.Id, roles.Name, users.ImageUrl };
+                return from users in appContext.Users
+                       join userroles in appContext.UserRoles on users.Id equals userroles.UserId
+                       join roles in appContext.Roles on userroles.RoleId equals roles.Id
+                       where users.UserName != "superuser"
+                       select new { users.Id, users.UserName, users.FirstName, users.LastName, users.Address, users.PhoneNumber, RoleId = roles.Id, roles.Name, users.ImageUrl };
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public IQueryable<object> SearchAllAsyncByName(string userName)
+        {
+            try
+            {
+                return from users in appContext.Users
+                       join userroles in appContext.UserRoles on users.Id equals userroles.UserId
+                       join roles in appContext.Roles on userroles.RoleId equals roles.Id
+                       where users.UserName != "superuser" && users.UserName.Contains(userName)
+                       select new { users.Id, users.UserName, users.FirstName, users.LastName, users.Address, users.PhoneNumber, RoleId = roles.Id, roles.Name, users.ImageUrl };
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public IQueryable<object> GetAllRoles()
+        {
+            try
+            {
+                return appContext.Roles.Select(x => new { value = x.Id, label = x.Name });
             }
             catch (Exception ex)
             {
@@ -46,6 +75,24 @@ namespace Hangman.Service
             {
                 var result = await _userManager.CreateAsync(userIdentity, password);
                 if (result.Succeeded) await appContext.SaveChangesAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<IdentityResult> DeleteAsync(T userIdentity)
+        {
+            try
+            {
+                var result = await _userManager.DeleteAsync(userIdentity);
+                if (result.Succeeded)
+                {
+                    await _userManager.RemoveFromRoleAsync(userIdentity, "guest");
+                    await appContext.SaveChangesAsync();
+                }
                 return result;
             }
             catch (Exception ex)

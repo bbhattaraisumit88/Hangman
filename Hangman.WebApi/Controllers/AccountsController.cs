@@ -48,7 +48,23 @@ namespace Hangman.WebApi.Controllers
             {
                 var userList = _userService.GetAllAsync().ToList();
                 if (userList.Count > 0) return Ok(userList);
-                 else return NotFound("No users available");
+                else return NotFound("No users available");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("SearchUser/{userName}")]
+        public IActionResult Search(string userName)
+        {
+            try
+            {
+                var userList = _userService.SearchAllAsyncByName(userName).ToList();
+                if (userList.Count > 0) return Ok(userList);
+                else return NotFound("No users available");
             }
             catch (Exception ex)
             {
@@ -78,6 +94,26 @@ namespace Hangman.WebApi.Controllers
                 throw;
             }
         }
+
+        [HttpPost]
+        [Route("DeleteUser/{userId}")]
+        public async Task<IActionResult> Delete(string userId)
+        {
+            try
+            {
+                AppUser userIdentity = await _userService.FindByIdAsync(userId);
+                IdentityResult result = await _userService.DeleteAsync(userIdentity);
+                if (result.Succeeded)
+                {
+                    return new JsonResult("User Deleted Successfully");
+                }
+                else return BadRequest(Errors.AddErrorToModelState(result, ModelState));
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }   
 
         [HttpPost]
         [Route("Login")]

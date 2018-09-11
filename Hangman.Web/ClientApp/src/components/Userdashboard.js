@@ -4,33 +4,29 @@ import { Glyphicon, Nav, Navbar, NavItem, Col, Grid, Row } from 'react-bootstrap
 import { LinkContainer } from 'react-router-bootstrap';
 import './Admindashboard.css';
 
-export class Admindashboard extends Component {
-    displayName = Admindashboard.name
+export class Userdashboard extends Component {
+    displayName = Userdashboard.name
 
     render() {
         return (
             <Navbar inverse fixedTop fluid collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <Link to={'/manageuser'}>Admin Dashboard</Link>
+                        <Link to={'/applyleave'}>User Dashboard</Link>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <LinkContainer to={'/manageuser'} exact>
+                        <LinkContainer to={'/applyleave'}>
                             <NavItem>
-                                <Glyphicon glyph='user' /> Manage Users
+                                <Glyphicon glyph='th-list' /> Apply Leave
               </NavItem>
                         </LinkContainer>
-                        <LinkContainer to={'/approveleave'}>
+                        <LinkContainer to={'/login'} exact>
                             <NavItem>
-                                <Glyphicon glyph='th-list' /> Check Leave Status
-              </NavItem>
-                        </LinkContainer>
-                        <LinkContainer to={'/login'}>
-                            <NavItem>
-                                <Glyphicon glyph='th-list' /> Logout
+                                <Glyphicon glyph='user' /> Logout
+                              
               </NavItem>
                         </LinkContainer>
                     </Nav>

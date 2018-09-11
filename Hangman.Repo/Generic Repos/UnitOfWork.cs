@@ -13,7 +13,7 @@ namespace Hangman.Repo
         }
 
         UserRepository _userRepository;
-      
+
         public UserRepository UserRepository
         {
             get
@@ -22,7 +22,15 @@ namespace Hangman.Repo
             }
         }
 
-       
+        UserLeaveRepository _userLeaveRepository;
+        public UserLeaveRepository UserLeaveRepository
+        {
+            get
+            {
+                return _userLeaveRepository ?? (_userLeaveRepository = new UserLeaveRepository(_dbContext));
+            }
+        }
+
         public int Save()
         {
             return _dbContext.SaveChanges();

@@ -4,6 +4,8 @@ import { Container, Row, Col, Input, Button, Fa, Card, CardBody, ModalFooter } f
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import 'sweetalert/dist/sweetalert.css';
+import { Admindashboard } from './Admindashboard';
+import { Userdashboard } from './Userdashboard';
 
 export class Login extends Component {
     constructor(props) {
@@ -63,6 +65,15 @@ export class Login extends Component {
 
     loginSuccess(token) {
         localStorage.setItem('auth_token', JSON.stringify(token));
+        var a = document.createElement('a');     
+        if (token.role === 'superuser') {
+            a.href = '/manageuser';
+        } else {
+            a.href = '/applyleave';
+        }
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
     }
 
     handleChange(e) {

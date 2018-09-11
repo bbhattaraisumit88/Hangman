@@ -4,14 +4,16 @@ using Hangman.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hangman.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180910180158_user leave added status")]
+    partial class userleaveaddedstatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,7 +95,7 @@ namespace Hangman.Domain.Migrations
                     b.Property<string>("Reason")
                         .IsRequired();
 
-                    b.Property<string>("Status");
+                    b.Property<bool>("Status");
 
                     b.Property<string>("To")
                         .IsRequired();
