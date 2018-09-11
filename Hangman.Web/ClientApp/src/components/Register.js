@@ -120,6 +120,15 @@ export class Register extends Component {
 
     loginSuccess(token) {
         localStorage.setItem('auth_token', JSON.stringify(token));
+        var a = document.createElement('a');
+        if (token.role === 'superuser') {
+            a.href = '/manageuser';
+        } else {
+            a.href = '/applyleave';
+        }
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
     }
 
     validateEmail(email) {
